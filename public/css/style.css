@@ -1,0 +1,16 @@
+#container {
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px;
+}
+
+#ingredient {
+    width: 70%;
+    height: 2em;
+}
+
+#meaturement {
+    width: 15%;
+    height: 2em;
+}
