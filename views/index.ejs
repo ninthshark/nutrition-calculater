@@ -13,27 +13,20 @@
     <div id="container">
         <H2>Nutrition calculator UK edition</H2>
         <div id="recipe">
-            <form action="/" method="get">
+            <form action="/" method="post">
                 <div class="ingredient_row">
                     <input type="text" id="ingredient" name="ingredient" placeholder="Search ingredient here">
                     <button type="submit" id="add_ingredient">Search ingredient</button>
                 </div>  
             </form>          
         </div>
-        <hr>
         <div class="list-group">
-            <h2>Select your ingredient from the list</h2>
-            <% var data = result || [] %>
-            <% for (var i=0; i<data.length; i++) {%>
-            
-            <a href="/ingredient/<%= data[i]._id %>" class="list-group-item" data-id=<%= data[i]._id %>><%= data[i].food_name %></a>
-            <% } %>        
-        </div>
-    </div>
-    <div class="list-group recipe">
-        <% result.forEach((item) => { %>
-            <p><% item %></p>
-        <% }); %>
+                <h2>Select your ingredient from the list</h2>
+                <% for (var i=0; i<data.length; i++) {%>
+                
+                <a href="/ingredient/<%= data[i]._id %>" class="list-group-item" data-id=<%= data[i]._id %>><%= data[i].food_name %></a>
+                <% } %>        
+            </div>
     </div>
 
 </body>
