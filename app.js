@@ -83,13 +83,22 @@ app.get('/ingredient', (req, res) => {
 
 app.post('/ingredient', urlencodedParser, (req, res, next) => {   
     quantity = req.body.size ;
-    var nutrition = calculator.calculator(ingredientsList, quantity);
+    var nutrition = calculator.nutriCal(ingredientsList, quantity);
+    var refIntakes = calculator.referenceIntakesCal(nutrition)
     var data = {
         ingredientsList: ingredientsList,
-        // If there is one ingredient, quantity is string
-        quantity: (ingredientsList.length > 1 ? quantity : quantity.split()), 
-        nutrition: nutrition
+        //If there is one ingredient, quantity is string
+        quantity: (typeof quantity === 'string') ? quantity = quantity.split() : quantity = quantity, 
+        // quantity: quantity,
+        nutrition: nutrition,
+        refIntakes
     };
+    console.log(ingredientsList);
+    console.log(quantity);
+    console.log(quantity.length);
+    console.log(typeof quantity);
+    console.log(nutrition);
+    console.log(refIntakes);
     res.render('recipe', {data});
     // Reset recipe
     ingredientsList = [];

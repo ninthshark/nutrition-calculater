@@ -14,7 +14,7 @@
             <% ingredientsList.forEach((item) => { %>
                 <div class="list-group-item">
                     <%= item.food_name %>
-                    <input type="text" name="size" class="">
+                    <input type="number" name="size" class="" required>
                 </div>
             <% }); %>
             <a href="/" class="btn btn-primary">add more ingredient</a>
@@ -23,6 +23,6 @@
         
         <!-- <a href="/" class="btn btn-primary">add more ingredient</a> -->
         <!-- <a href="/recipe" class="btn btn-primary">Analized Recipe</a> -->
-</div>
+    </div>
 </body>
 </html>
