@@ -1,3 +1,115 @@
 
-<p>Hello</p>
-<%= nutrition.energyKCal %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Nutrition Facts Calculator</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="container">
+        <p>Your Recipe Ingredients</p>
+        <ul class = "list-group">
+            <% for (var i = 0; i < data.ingredientsList.length; i++) { %>
+                <li class="list-group-item"><%= data.ingredientsList[i].food_name %> - <%= data.quantity[i] %> g</li>
+            <% } %>
+        </ul>
+        <p>Nutrition value based on your recipe</p>
+        <div>Enery :<%= data.nutrition.energyKCal.toFixed(2) %> Kcal </div>
+        <div>Enery :<%= (data.nutrition.energyKJ).toFixed(2) %> Kj </div>
+        <div>Protein :<%= (data.nutrition.protein).toFixed(2) %> g </div>
+        <div>Carbohydrate :<%= (data.nutrition.carbohydrate).toFixed(2) %> g </div>
+        <div>- of which sugars :<%= (data.nutrition.sugars).toFixed(2) %> g </div>
+        <div>Fat :<%= data.nutrition.fat.toFixed(2) %> g </div>
+        <div>- of which saturates :<%= (data.nutrition.saturatedFat).toFixed(2) %> g </div>
+        <div>Fibre :<%= data.nutrition.fibre.toFixed(2) %> g </div>
+        
+        <a href="/" class="btn btn-primary">Start new</a>
+
+        <div class="table-responsive"> 
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Typical values</th>
+                        <th>100g contains</th>
+                        <th>Each portion contains</th>
+                        <th>%RI</th>
+                        <th>Ricipe contains</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Energy</td>
+                        <td><%= data.nutrition.energyKCal.toFixed(2) %> Kcal</td>
+                        <td>0g</td>
+                        <td><%= data.refIntakes.riKcal.toFixed(1) %> %</td>
+                        <td><%= data.nutrition.energyKCal.toFixed(2) %> Kcal</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><%= data.nutrition.energyKJ.toFixed(2) %> kJ</td>
+                        <td>0</td>
+                        <td></td>
+                        <td><%= data.nutrition.energyKJ.toFixed(2) %> kJ</td>
+                    </tr>
+                    <tr>
+                        <td>Fat</td>
+                        <td><%= data.nutrition.fat.toFixed(2) %> g</td>
+                        <td>0</td>
+                        <td><%= data.refIntakes.riFat.toFixed(1) %> %</td>
+                        <td><%= data.nutrition.fat.toFixed(2) %> g</td>
+                    </tr>
+                    <tr>
+                        <td>of which saturates</td>
+                        <td><%= data.nutrition.saturatedFat.toFixed(2) %> g</td>
+                        <td>0</td>
+                        <td><%= data.refIntakes.riSat.toFixed(1) %> %</td>
+                        <td><%= data.nutrition.saturatedFat.toFixed(2) %> g</td>
+                    </tr>
+                    <tr>
+                        <td>Carbohydrate</td>
+                        <td><%= data.nutrition.carbohydrate.toFixed(2) %> g</td>
+                        <td>0</td>
+                        <td><%= data.refIntakes.riCarb.toFixed(1) %> %</td>
+                        <td><%= data.nutrition.carbohydrate.toFixed(2) %> g</td>
+                    </tr>
+                    <tr>
+                        <td>of which sugars</td>
+                        <td><%= data.nutrition.sugars.toFixed(2) %> g</td>
+                        <td>0</td>
+                        <td><%= data.refIntakes.riSugars.toFixed(1) %> %</td>
+                        <td><%= data.nutrition.sugars.toFixed(2) %> g</td>
+                    </tr>
+                    <tr>
+                        <td>Protein</td>
+                        <td><%= data.nutrition.protein.toFixed(2) %> g</td>
+                        <td>0</td>
+                        <td><%= data.refIntakes.riProtein.toFixed(1) %> %</td>
+                        <td><%= data.nutrition.protein.toFixed(2) %> g</td>
+                    </tr>
+                    <tr>
+                        <td>Fibre</td>
+                        <td><%= data.nutrition.fibre.toFixed(2) %> g</td>
+                        <td>0</td>
+                        <td></td>
+                        <td><%= data.nutrition.fibre.toFixed(2) %> g</td>
+                    </tr>
+                    <tr>
+                        <td>Salt</td>
+                        <td><%= data.nutrition.salt.toFixed(2) %> g</td>
+                        <td>0</td>
+                        <td><%= data.refIntakes.riSalt.toFixed(1) %> %</td>
+                        <td><%= data.nutrition.salt.toFixed(2) %> g</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+
+</body>
+</html>
