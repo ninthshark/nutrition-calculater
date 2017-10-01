@@ -81,18 +81,19 @@ app.get('/ingredient', (req, res) => {
     res.render('ingredient', {ingredientsList});
 });
 
-app.post('/ingredient', urlencodedParser, (req, res, next) => {
-    console.log(req.body.size);   
-    quantity = req.body ;
-        // for (let i = 0; i < ingredientsList.length; i++) {
-        //     ingredientsList[i].quantity = quantity[i];
-        // }
-        console.log(ingredientsList);
-        console.log(quantity);
-        var nutrition = calculator.calculator(ingredientsList, quantity.size);
-        console.log(nutrition);
-        
-    res.render('recipe', {nutrition});
+app.post('/ingredient', urlencodedParser, (req, res, next) => {   
+    quantity = req.body.size ;
+    var nutrition = calculator.calculator(ingredientsList, quantity);
+    var data = {
+        ingredientsList: ingredientsList,
+        // If there is one ingredient, quantity is string
+        quantity: (ingredientsList.length > 1 ? quantity : quantity.split()), 
+        nutrition: nutrition
+    };
+    res.render('recipe', {data});
+    // Reset recipe
+    ingredientsList = [];
+    quantity = [];
 });
 
 app.listen(3000, () => console.log('Server is running on port 3000...'));
