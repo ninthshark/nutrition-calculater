@@ -1,6 +1,6 @@
 
 var nutriCal = function(ingredients, quantity, devisor = 100) {
-    var totalFibre = 0 , totalSugars = 0, totalEnergyKJ = 0, totalEnergyKCal =0, totalCarbohydrate =0, totalSaturatedFat =0, totalFat=0, totalProtein=0, totalSalt=0;
+    var totalFibre = 0 , totalSugars = 0, totalEnergyKJ = 0, totalEnergyKCal =0, totalCarbohydrate =0, totalSaturatedFat =0, totalFat=0, totalProtein=0, salt=0;
 
     if (ingredients.length === 1) {
         quantity = quantity.split();
@@ -71,13 +71,22 @@ var nutriCal = function(ingredients, quantity, devisor = 100) {
             totalProtein += (parseFloat(ingredients[i].protein)  * parseFloat(quantity[i]))/devisor;
         }
     }
-    return {energyKCal: totalEnergyKCal, energyKJ: totalEnergyKJ, protein: totalProtein, carbohydrate: totalCarbohydrate, sugars: totalSugars, fat: totalFat, saturatedFat: totalSaturatedFat, fibre: totalFibre, totalSalt}
+    return {energyKCal: totalEnergyKCal, energyKJ: totalEnergyKJ, protein: totalProtein, carbohydrate: totalCarbohydrate, sugars: totalSugars, fat: totalFat, saturatedFat: totalSaturatedFat, fibre: totalFibre, salt}
 }
 
-var referenceIntakesCal = function(ekcal, protein, sat, carb, fat, salt, sugars) {
-    var [riKcal, riProtein, riSat, riCarb, riFat, riSalt, riSugars] = [ekcal, protein, sat, carb, fat, salt, sugars].map((i) => i * 0.05);
+var referenceIntakesCal = function(nutriObj) {
+    var [riKcal, riKJ, riProtein, riCarb, riSugars, riFat, riSat, riFibre, riSalt] 
+    = [(nutriObj.energyKCal * 100) / 2000,
+        nutriObj.energyKJ,
+        (nutriObj.protein * 100) / 50,
+        (nutriObj.carbohydrate *100) / 260,
+        (nutriObj.sugars * 100) / 90,
+        (nutriObj.fat * 100) / 70,
+        (nutriObj.saturatedFat * 100) / 20,
+        nutriObj.fibre,
+        (nutriObj.salt * 100) / 6];
     
-    return {riKcal, riProtein, riSat, riCarb, riFat, riSalt, riSugars};
+    return {riKcal, riKJ, riProtein, riCarb, riSugars, riFat, riSat, riFibre, riSalt};
 };
 
 module.exports = { nutriCal, referenceIntakesCal };
