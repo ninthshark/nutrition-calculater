@@ -43,13 +43,15 @@ const nutritionalSchema = new Schema({
     "energy_kcal": {type: String, default: "0"},
     "energy_kj": {type: String, default: "0"},
     "sugars": {type: String, default: "0"},
-    "fibre": {type: String, default: "0"}
+    "fibre": {type: String, default: "0"},
+    "sodium": {type: String, default: "0"}
 });
 
-const Nutri = mongoose.model('nutritionalvalues', nutritionalSchema);
+const Nutri = mongoose.model('nutrifacts', nutritionalSchema);
 
 var ingredientsList = [];
 var quantity = [];
+var numOfServings;
 
 app.get('/', (req, res) => {
     var data = {};
@@ -83,20 +85,33 @@ app.get('/ingredient', (req, res) => {
 
 app.post('/ingredient', urlencodedParser, (req, res, next) => {   
     quantity = req.body.size ;
+    quantity = (typeof quantity === 'string') ? quantity = quantity.split() : quantity = quantity;
+    numOfServings = req.body.portion;
+    var totalWeight = quantity.map((i) => parseInt(i)).reduce((acc,cur) => acc + cur, 0);
     var nutrition = calculator.nutriCal(ingredientsList, quantity);
-    var refIntakes = calculator.referenceIntakesCal(nutrition)
+    var refIntakes = calculator.referenceIntakesCal(nutrition);
+    var perHundredContains = calculator.perHundredContains(nutrition, totalWeight);
+    var perPortionContains = calculator.perPortionContains(nutrition, numOfServings);
+    var dailyRIContains = calculator.dailyRIContains(refIntakes, numOfServings);
+    var servingSize = parseInt(totalWeight / numOfServings)
     var data = {
         ingredientsList: ingredientsList,
-        //If there is one ingredient, quantity is string
-        quantity: (typeof quantity === 'string') ? quantity = quantity.split() : quantity = quantity, 
+        //If there is one ingredient, quantity returns string otherwise array
+        quantity, 
         // quantity: quantity,
         nutrition: nutrition,
-        refIntakes
+        refIntakes,
+        perHundredContains,
+        perPortionContains,
+        dailyRIContains,
+        servingSize,
+        numOfServings
     };
     console.log(ingredientsList);
-    console.log(quantity);
-    console.log(quantity.length);
     console.log(typeof quantity);
+    console.log(quantity.length);
+    console.log(totalWeight);
+    console.log(numOfServings);
     console.log(nutrition);
     console.log(refIntakes);
     res.render('recipe', {data});
