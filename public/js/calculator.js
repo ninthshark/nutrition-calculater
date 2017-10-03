@@ -2,9 +2,9 @@
 var nutriCal = function(ingredients, quantity, devisor = 100) {
     var totalFibre = 0 , totalSugars = 0, totalEnergyKJ = 0, totalEnergyKCal =0, totalCarbohydrate =0, totalSaturatedFat =0, totalFat=0, totalProtein=0, salt=0;
 
-    if (ingredients.length === 1) {
-        quantity = quantity.split();
-    }
+    // if (ingredients.length === 1) {
+    //     quantity = quantity.split();
+    // }
 
     for (var i=0; i<ingredients.length; i++) {
         if ( ingredients[i].fibre === 'N') {
@@ -70,8 +70,16 @@ var nutriCal = function(ingredients, quantity, devisor = 100) {
         } else {
             totalProtein += (parseFloat(ingredients[i].protein)  * parseFloat(quantity[i]))/devisor;
         }
+
+        if ( ingredients[i].sodium === 'N') {
+            ingredients[i].sodium = 0;
+        } else if ( ingredients[i].sodium === 'Tr') {
+            ingredients[i].sodium = 0.5
+        } else {
+            salt += (parseFloat(ingredients[i].sodium)  * parseFloat(quantity[i]))/devisor;
+        }
     }
-    return {energyKCal: totalEnergyKCal, energyKJ: totalEnergyKJ, protein: totalProtein, carbohydrate: totalCarbohydrate, sugars: totalSugars, fat: totalFat, saturatedFat: totalSaturatedFat, fibre: totalFibre, salt}
+    return {energyKCal: totalEnergyKCal, energyKJ: totalEnergyKJ, protein: totalProtein, carbohydrate: totalCarbohydrate, sugars: totalSugars, fat: totalFat, saturatedFat: totalSaturatedFat, fibre: totalFibre, salt:salt/1000}
 }
 
 var referenceIntakesCal = function(nutriObj) {
@@ -89,4 +97,28 @@ var referenceIntakesCal = function(nutriObj) {
     return {riKcal, riKJ, riProtein, riCarb, riSugars, riFat, riSat, riFibre, riSalt};
 };
 
-module.exports = { nutriCal, referenceIntakesCal };
+var perHundredContains = function(nutriObj, totalWeight) {
+    var [hdKcal, hdKJ, hdProtein, hdCarb, hdSugars, hdFat, hdSat, hdFibre, hdSalt]
+    = [nutriObj.energyKCal, nutriObj.energyKJ, nutriObj.protein, nutriObj.carbohydrate,
+        nutriObj.sugars, nutriObj.fat, nutriObj.saturatedFat, nutriObj.fibre,
+        nutriObj.salt].map((i) => (i * 100) / totalWeight);
+    return {hdKcal, hdKJ, hdProtein, hdCarb, hdSugars, hdFat, hdSat, hdFibre, hdSalt}
+};
+
+var perPortionContains = function(nutriObj, numOfServings) {
+    var [ppKcal, ppKJ, ppProtein, ppCarb, ppSugars, ppFat, ppSat, ppFibre, ppSalt]
+    = [nutriObj.energyKCal, nutriObj.energyKJ, nutriObj.protein, nutriObj.carbohydrate,
+        nutriObj.sugars, nutriObj.fat, nutriObj.saturatedFat, nutriObj.fibre,
+        nutriObj.salt].map((i) => i / numOfServings);
+    return {ppKcal, ppKJ, ppProtein, ppCarb, ppSugars, ppFat, ppSat, ppFibre, ppSalt}
+};
+
+var dailyRIContains = function(riObj, numOfServings) {
+    var [driKcal, driKJ, driProtein, driCarb, driSugars, driFat, driSat, driFibre, driSalt]
+    = [riObj.riKcal, riObj.riKJ, riObj.riProtein, riObj.riCarb,
+        riObj.riSugars, riObj.riFat, riObj.riSat, riObj.riFibre,
+        riObj.riSalt].map((i) => i / numOfServings);
+    return {driKcal, driKJ, driProtein, driCarb, driSugars, driFat, driSat, driFibre, driSalt}
+}
+
+module.exports = { nutriCal, referenceIntakesCal, perHundredContains, perPortionContains, dailyRIContains };

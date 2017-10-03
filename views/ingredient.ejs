@@ -14,9 +14,10 @@
             <% ingredientsList.forEach((item) => { %>
                 <div class="list-group-item">
                     <%= item.food_name %>
-                    <input type="number" name="size" class="" required>
+                    <input type="number" name="size" class="" required> in grams
                 </div>
             <% }); %>
+            <input type="number" name="portion" min="1" placeholder="Number Of Servings" required>
             <a href="/" class="btn btn-primary">add more ingredient</a>
             <button type="submit" class="btn btn-primary">Analize Recipe</button>
         </form>

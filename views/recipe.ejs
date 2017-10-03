@@ -18,25 +18,14 @@
                 <li class="list-group-item"><%= data.ingredientsList[i].food_name %> - <%= data.quantity[i] %> g</li>
             <% } %>
         </ul>
-        <p>Nutrition value based on your recipe</p>
-        <div>Enery :<%= data.nutrition.energyKCal.toFixed(2) %> Kcal </div>
-        <div>Enery :<%= (data.nutrition.energyKJ).toFixed(2) %> Kj </div>
-        <div>Protein :<%= (data.nutrition.protein).toFixed(2) %> g </div>
-        <div>Carbohydrate :<%= (data.nutrition.carbohydrate).toFixed(2) %> g </div>
-        <div>- of which sugars :<%= (data.nutrition.sugars).toFixed(2) %> g </div>
-        <div>Fat :<%= data.nutrition.fat.toFixed(2) %> g </div>
-        <div>- of which saturates :<%= (data.nutrition.saturatedFat).toFixed(2) %> g </div>
-        <div>Fibre :<%= data.nutrition.fibre.toFixed(2) %> g </div>
-        
-        <a href="/" class="btn btn-primary">Start new</a>
-
+        <div><h3>Total servings : <%= data.numOfServings %></h3></div>
         <div class="table-responsive"> 
             <table class="table">
                 <thead>
                     <tr>
                         <th>Typical values</th>
                         <th>100g contains</th>
-                        <th>Each portion contains</th>
+                        <th>(<%= data.servingSize%>g) contains</th>
                         <th>%RI</th>
                         <th>Ricipe contains</th>
                     </tr>
@@ -44,71 +33,71 @@
                 <tbody>
                     <tr>
                         <td>Energy</td>
-                        <td><%= data.nutrition.energyKCal.toFixed(2) %> Kcal</td>
-                        <td>0g</td>
-                        <td><%= data.refIntakes.riKcal.toFixed(1) %> %</td>
+                        <td><%= data.perHundredContains.hdKcal.toFixed(2) %> Kcal</td>
+                        <td><%= data.perPortionContains.ppKcal.toFixed(1) %> Kcal</td>
+                        <td><%= data.dailyRIContains.driKcal.toFixed(1) %> %</td>
                         <td><%= data.nutrition.energyKCal.toFixed(2) %> Kcal</td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td><%= data.nutrition.energyKJ.toFixed(2) %> kJ</td>
-                        <td>0</td>
+                        <td><%= data.perHundredContains.hdKJ.toFixed(2) %> kJ</td>
+                        <td><%= data.perPortionContains.ppKJ.toFixed(1) %> kJ</td>
                         <td></td>
                         <td><%= data.nutrition.energyKJ.toFixed(2) %> kJ</td>
                     </tr>
                     <tr>
                         <td>Fat</td>
-                        <td><%= data.nutrition.fat.toFixed(2) %> g</td>
-                        <td>0</td>
-                        <td><%= data.refIntakes.riFat.toFixed(1) %> %</td>
+                        <td><%= data.perHundredContains.hdFat.toFixed(2) %> g</td>
+                        <td><%= data.perPortionContains.ppFat.toFixed(1) %> g</td>
+                        <td><%= data.dailyRIContains.driFat.toFixed(1) %> %</td>
                         <td><%= data.nutrition.fat.toFixed(2) %> g</td>
                     </tr>
                     <tr>
                         <td>of which saturates</td>
-                        <td><%= data.nutrition.saturatedFat.toFixed(2) %> g</td>
-                        <td>0</td>
-                        <td><%= data.refIntakes.riSat.toFixed(1) %> %</td>
+                        <td><%= data.perHundredContains.hdSat.toFixed(2) %> g</td>
+                        <td><%= data.perPortionContains.ppSat.toFixed(1) %> g</td>
+                        <td><%= data.dailyRIContains.driSat.toFixed(1) %> %</td>
                         <td><%= data.nutrition.saturatedFat.toFixed(2) %> g</td>
                     </tr>
                     <tr>
                         <td>Carbohydrate</td>
-                        <td><%= data.nutrition.carbohydrate.toFixed(2) %> g</td>
-                        <td>0</td>
-                        <td><%= data.refIntakes.riCarb.toFixed(1) %> %</td>
+                        <td><%= data.perHundredContains.hdCarb.toFixed(2) %> g</td>
+                        <td><%= data.perPortionContains.ppCarb.toFixed(1) %> g</td>
+                        <td><%= data.dailyRIContains.driCarb.toFixed(1) %> %</td>
                         <td><%= data.nutrition.carbohydrate.toFixed(2) %> g</td>
                     </tr>
                     <tr>
                         <td>of which sugars</td>
-                        <td><%= data.nutrition.sugars.toFixed(2) %> g</td>
-                        <td>0</td>
-                        <td><%= data.refIntakes.riSugars.toFixed(1) %> %</td>
+                        <td><%= data.perHundredContains.hdSugars.toFixed(2) %> g</td>
+                        <td><%= data.perPortionContains.ppSugars.toFixed(1) %> g</td>
+                        <td><%= data.dailyRIContains.driSugars.toFixed(1) %> %</td>
                         <td><%= data.nutrition.sugars.toFixed(2) %> g</td>
                     </tr>
                     <tr>
                         <td>Protein</td>
-                        <td><%= data.nutrition.protein.toFixed(2) %> g</td>
-                        <td>0</td>
-                        <td><%= data.refIntakes.riProtein.toFixed(1) %> %</td>
+                        <td><%= data.perHundredContains.hdProtein.toFixed(2) %> g</td>
+                        <td><%= data.perPortionContains.ppProtein.toFixed(1) %> g</td>
+                        <td><%= data.dailyRIContains.driProtein.toFixed(1) %> %</td>
                         <td><%= data.nutrition.protein.toFixed(2) %> g</td>
                     </tr>
                     <tr>
                         <td>Fibre</td>
-                        <td><%= data.nutrition.fibre.toFixed(2) %> g</td>
-                        <td>0</td>
+                        <td><%= data.perHundredContains.hdFibre.toFixed(2) %> g</td>
+                        <td><%= data.perPortionContains.ppFibre.toFixed(1) %> g</td>
                         <td></td>
                         <td><%= data.nutrition.fibre.toFixed(2) %> g</td>
                     </tr>
                     <tr>
                         <td>Salt</td>
-                        <td><%= data.nutrition.salt.toFixed(2) %> g</td>
-                        <td>0</td>
-                        <td><%= data.refIntakes.riSalt.toFixed(1) %> %</td>
-                        <td><%= data.nutrition.salt.toFixed(2) %> g</td>
+                        <td><%= (data.perHundredContains.hdSalt >= 1 ?  perHundredContains.hdSalt = data.perHundredContains.hdSalt.toFixed():data.perHundredContains.hdSalt = '<1' ) %>g</td>
+                        <td><%= (data.perHundredContains.ppSalt >= 1 ?  perHundredContains.ppSalt = data.perHundredContains.ppSalt.toFixed():data.perHundredContains.ppSalt = '<1' ) %>g</td>
+                        <td><%= (data.perHundredContains.driSalt >= 1 ?  perHundredContains.driSalt = data.perHundredContains.driSalt.toFixed():data.perHundredContains.driSalt = '<1' ) %>%</td>
+                        <td><%= data.nutrition.salt.toFixed(1) %> g</td>
                     </tr>
                 </tbody>
             </table>
-        </div>
-        
+            <a href="/" class="btn btn-primary">Start new</a>
+        </div>        
     </div>
 
 </body>
